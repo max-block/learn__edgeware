@@ -1,0 +1,22 @@
+apt update
+apt install -y gcc libc6-dev
+apt install -y cmake pkg-config libssl-dev git clang libclang-dev
+
+# Prefetch SSH publickeys
+ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+# Install rustup
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source /root/.cargo/env
+export PATH=/root/.cargo/bin:$PATH
+
+# Get packages
+git clone https://github.com/hicommonwealth/edgeware-node.git
+cd edgeware-node
+
+tmux # it takes a long time
+./setup.sh
+
+
+# run
+edgeware --chain=beresheet
